@@ -5,8 +5,8 @@ from django.db import models
 class Person(models.Model):
     fname = models.CharField(max_length=50,verbose_name='first name')
     lname = models.CharField(max_length=50,verbose_name='last name')
-    email = models.EmailField(max_length=50,unique=True)
-    bdate = models.DateField(verbose_name='birth date')
+    email = models.EmailField(max_length=50,unique=True,null=True)
+    bdate = models.DateField(verbose_name='birth date',null=True)
     img = models.ImageField(upload_to='media/person/',null=True)
 
     def __str__(self) -> str:
@@ -19,6 +19,7 @@ class Person(models.Model):
 class Project(models.Model):
     user = models.ForeignKey(Person,on_delete=models.CASCADE,null=True)
     name = models.CharField(max_length=100,null=True)
+    link = models.CharField(max_length=50,null=True)
     desc = models.TextField(verbose_name="Description",null=True)
     created_at = models.DateField(verbose_name="Careted At",null=True)
     img = models.ImageField(upload_to='media/project/',null=True)
@@ -43,3 +44,7 @@ class Skill(models.Model):
     user = models.ForeignKey(Person,on_delete=models.CASCADE,null=True)
     name = models.CharField(max_length=50)
     img = models.ImageField(upload_to='media/skill/',null=True)
+
+
+    def __str__(self) -> str:
+        return f"{self.user} {self.name}"
