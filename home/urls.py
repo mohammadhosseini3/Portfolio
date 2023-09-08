@@ -7,6 +7,4 @@ urlpatterns = [
     path('person/<int:id>/',views.person_detail),
     path('article_list/',views.article_list),
     path('article/<int:id>/',views.artcile_detail)
-    # path('img/',views.image_list),
-    # path('img/education/')
 ]
