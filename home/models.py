@@ -16,7 +16,7 @@ class Project(models.Model):
     name = models.CharField(max_length=100,null=True)
     link = models.CharField(max_length=50,blank=True,null=True)
     desc = models.TextField(verbose_name="Description",null=True)
-
+    img = models.ImageField(upload_to='project/',blank=True,null=True)
     created_at = models.DateField(verbose_name="Careted At",null=True)
 
     def __str__(self) -> str:
@@ -46,8 +46,8 @@ class Article(models.Model):
       
 
 class Person(models.Model):
-    fname = models.CharField(max_length=50,verbose_name='first name')
-    lname = models.CharField(max_length=50,verbose_name='last name')
+    fname = models.CharField(max_length=50,verbose_name='first name',blank=True,null=True)
+    lname = models.CharField(max_length=50,verbose_name='last name',blank=True,null=True)
     email = models.EmailField(max_length=50,unique=True,null=True)
     bdate = models.DateField(verbose_name='birth date',null=True)
     skill = models.ManyToManyField(Skill,blank=True)

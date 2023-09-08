@@ -4,13 +4,13 @@ from drf_extra_fields.fields import Base64ImageField
 from drf_writable_nested import WritableNestedModelSerializer
 
 class SkillSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField()
     class Meta:    
         model = Skill
         fields = '__all__'
 
 
 class ProjectSerializer(serializers.ModelSerializer):
+    img = Base64ImageField(use_url=True,required=False)
     class Meta:
         model = Project
         fields = '__all__'
@@ -31,11 +31,10 @@ class EducationSerializer(serializers.ModelSerializer):
 
 
 class PersonSerializer(WritableNestedModelSerializer,serializers.ModelSerializer):
-    id = serializers.IntegerField()
-    skill = SkillSerializer(many=True)
-    project = ProjectSerializer(many=True)
-    article = ArticleSerializer(many=True)
-    education = EducationSerializer(many=True)
+    skill = SkillSerializer(many=True,required=False)
+    project = ProjectSerializer(many=True,required=False)
+    article = ArticleSerializer(many=True,required=False)
+    education = EducationSerializer(many=True,required=False)
     img = Base64ImageField(use_url=True,required=False)
 
     class Meta:

@@ -5,14 +5,20 @@
 # GET -> /api/people_list/  (people information)
 
 ** Email should be unique
+** Ypu should pass id through url
+** You can add new project,skill,article and education
+while you are creating a new person
 
-** End points
 
+** End points **
+-----------------------------------------------
+-----------------------------------------------
 For getting people list or posting a new person 
 GET or POST /api/people_list/
 
 For getting, updating and deleting a person
 GET,PUT,DELETE /api/person/person_id/
+-----------------------------------------------
 -----------------------------------------------
 For getting article list or posting a new article 
 GET or POST /api/people_list/
@@ -20,4 +26,16 @@ GET or POST /api/people_list/
 For getting, updating and deleting an article
 GET,PUT,DELETE /api/article/article_id/
 ----------------------------------------------
+-----------------------------------------------
+For getting project list or posting a new project 
+GET or POST /api/project_list/
 
+For getting, updating and deleting a project
+GET,PUT,DELETE /api/project/project_id/
+----------------------------------------------
+-----------------------------------------------
+For getting education list or posting a new education 
+GET or POST /api/education_list/
+
+For getting, updating and deleting a education
+GET,PUT,DELETE /api/education/education_id/
