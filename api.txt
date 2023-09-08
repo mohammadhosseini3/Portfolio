@@ -1,0 +1,7 @@
+# POST -> /api/people_list/ (adding new person)
+# DELETE -> /api/person/person_id/  (deleteing a person)
+# PUT -> /api/person/person_id/  (updating a person information)
+# GET -> /api/person/person_id/  (a person information)
+# GET -> /api/people_list/  (people information)
+
+** Email should be unique
