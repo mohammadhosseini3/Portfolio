@@ -5,3 +5,18 @@
 # GET -> /api/people_list/  (people information)
 
 ** Email should be unique
+
+** End points
+
+For getting people list or posting a new person 
+GET or POST /api/people_list/
+
+For getting, updating and deleting a person
+GET,PUT,DELETE /api/person/person_id/
+-   -   -   -   -   -   -   -   -
+For getting article list or posting a new article 
+GET or POST /api/people_list/
+
+For getting, updating and deleting an article
+GET,PUT,DELETE /api/article/article_id/
+

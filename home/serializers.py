@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import Person,Skill,Project,Article,Education
 from drf_extra_fields.fields import Base64ImageField
-from django.shortcuts import get_object_or_404
+from drf_writable_nested import WritableNestedModelSerializer
 
 class SkillSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField()
@@ -30,24 +30,14 @@ class EducationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class PersonSerializer(serializers.ModelSerializer):
+class PersonSerializer(WritableNestedModelSerializer,serializers.ModelSerializer):
     id = serializers.IntegerField()
     skill = SkillSerializer(many=True)
-    project = ProjectSerializer(read_only=True,many=True)
-    article = ArticleSerializer(read_only=True,many=True)
-    education = EducationSerializer(read_only=True,many=True)
+    project = ProjectSerializer(many=True)
+    article = ArticleSerializer(many=True)
+    education = EducationSerializer(many=True)
     img = Base64ImageField(use_url=True,required=False)
 
     class Meta:
         model = Person
         fields = '__all__'
-    
-
-    # def update(self,instance,validated_data):
-
-    #     skills_data = validated_data.pop('skill')
-    #     person = get_object_or_404(Person,pk=instance.id)
-    #     print(person.skill)
-    #     for person_skill in person.skill:
-    #         print(person_skill)
-    #     return instance

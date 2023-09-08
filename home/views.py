@@ -75,6 +75,7 @@ def artcile_detail(request,id):
         return Response(serializer.data)
     
     elif request.method == 'PUT':
+        print(request.data['article'])
         serializer = ArticleSerializer(article,data=request.data)
         if serializer.is_valid():
             serializer.save()
