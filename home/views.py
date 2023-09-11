@@ -1,10 +1,10 @@
 from rest_framework.response import Response
-from .models import Person
+from .models import *
 from .serializers import *
 from rest_framework.decorators import api_view
 from rest_framework import status
-import requests as r
 from django.shortcuts import get_object_or_404
+
 
 # Create your views here.
 @api_view(["GET","POST"])
@@ -16,7 +16,7 @@ def people_list(request):
         return Response({'person':serializer.data})
     
 
-    elif request.method == 'POST':
+    elif request.method == 'POST' and request.user.is_authenticated:
         serializer = PersonSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -35,11 +35,13 @@ def person_detail(request,id):
         return Response(serializer.data)
     
     elif request.method == 'PUT':
-        serializer = PersonSerializer(person, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # if request.user.is_authenticated:
+            serializer = PersonSerializer(person, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # return Response(status=status.HTTP_511_NETWORK_AUTHENTICATION_REQUIRED)
     
     elif request.method == 'DELETE':
         person.delete()
@@ -50,8 +52,8 @@ def person_detail(request,id):
 def article_list(request):
 
     if request.method == 'GET':
-        person = Article.objects.all()
-        serializer = ArticleSerializer(person,many=True)
+        article = Article.objects.all()
+        serializer = ArticleSerializer(article,many=True)
         return Response({'article':serializer.data})
     
 
@@ -84,7 +86,6 @@ def artcile_detail(request,id):
         article.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
-
 
 @api_view(["GET","POST"])
 def skill_list(request):
@@ -164,7 +165,6 @@ def education_detail(request,id):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 
-
 @api_view(["GET","POST"])
 def project_list(request):
 
@@ -194,6 +194,7 @@ def project_detail(request,id):
     
     elif request.method == 'PUT':
         serializer = ProjectSerializer(project,data=request.data)
+    
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -203,3 +204,76 @@ def project_detail(request,id):
         project.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
+
+@api_view(['GET','POST'])
+def worked_at(request):
+
+    if request.method == "GET":
+        company = WorkedAt.objects.all()
+        serializer = WorkedAtSerializer(company,many=True)
+        return Response({"worked_at":serializer.data})
+    elif request.method == 'POST':
+        serializer = WorkedAtSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET','PUT','DELETE'])
+def worked_at_detail(request,id):
+
+    company = get_object_or_404(WorkedAt,pk=id)
+
+    if request.method == "GET":
+        serializer = WorkedAtSerializer(company)
+        return Response({"worked_at":serializer.data})
+    
+    elif request.method == 'PUT':
+        serializer = WorkedAtSerializer(company,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        company.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+
+@api_view(['GET','POST'])
+def image_list(request):
+
+    if request.method == "GET":
+        image = Image.objects.all()
+        serializer = ImageSerializer(image,many=True)
+        return Response({"images":serializer.data})
+    elif request.method == 'POST':
+        serializer = ImageSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET','PUT','DELETE'])
+def image_detail(request,id):
+
+    image = get_object_or_404(Image,pk=id)
+
+    if request.method == "GET":
+        serializer = ImageSerializer(image)
+        return Response({"images":serializer.data})
+    
+    elif request.method == 'PUT':
+        serializer = ImageSerializer(image,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        image.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

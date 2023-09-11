@@ -1,41 +1,43 @@
-# POST -> /api/people_list/ (adding new person)
-# DELETE -> /api/person/person_id/  (deleteing a person)
-# PUT -> /api/person/person_id/  (updating a person information)
-# GET -> /api/person/person_id/  (a person information)
-# GET -> /api/people_list/  (people information)
-
 ** Email should be unique
 ** Ypu should pass id through url
-** You can add new project,skill,article and education
-while you are creating a new person
+** You can add new project,skill,article and education while you are creating a new person
+** You have to pass image address as string if you wanna convert it to BASE64(string) you can use this website
+" https://base64.guru/converter/encode/image "
 
 
 ** End points **
+
+
+For getting images list or posting a new image 
+GET or POST /api/images/
+
+For getting, updating and deleting a image
+GET,PUT,DELETE /api/images/image_id/
 -----------------------------------------------
 -----------------------------------------------
 For getting people list or posting a new person 
-GET or POST /api/people_list/
+GET or POST /api/people/
 
 For getting, updating and deleting a person
-GET,PUT,DELETE /api/person/person_id/
+GET,PUT,DELETE /api/people/person_id/
 -----------------------------------------------
 -----------------------------------------------
 For getting article list or posting a new article 
-GET or POST /api/people_list/
+GET or POST /api/articles/
 
 For getting, updating and deleting an article
-GET,PUT,DELETE /api/article/article_id/
+GET,PUT,DELETE /api/articles/article_id/
 ----------------------------------------------
 -----------------------------------------------
 For getting project list or posting a new project 
-GET or POST /api/project_list/
+GET or POST /api/projects/
 
 For getting, updating and deleting a project
-GET,PUT,DELETE /api/project/project_id/
+GET,PUT,DELETE /api/projects/project_id/
 ----------------------------------------------
 -----------------------------------------------
 For getting education list or posting a new education 
-GET or POST /api/education_list/
+GET or POST /api/educations/
 
 For getting, updating and deleting a education
-GET,PUT,DELETE /api/education/education_id/
+GET,PUT,DELETE /api/educations/education_id/
