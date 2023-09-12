@@ -5,7 +5,7 @@ from drf_writable_nested import WritableNestedModelSerializer
 
 
 class ImageSerializer(serializers.ModelSerializer):
-    img = Base64ImageField(use_url=True,required=False)
+    img = Base64ImageField(use_url=True)
     class Meta:
         model = Image
         fields = "__all__"
@@ -21,14 +21,15 @@ class ProjectTagSerializer(serializers.ModelSerializer):
         model = ProjectTag
         fields = "__all__"
 
-class ProjectSerializer(serializers.ModelSerializer):
+class ProjectSerializer(WritableNestedModelSerializer,serializers.ModelSerializer):
     images = ImageSerializer(many=True,required=False)
+    tag = ProjectTagSerializer(many=True,required=False)
     class Meta:
         model = Project
         fields = '__all__'
 
 
-class ArticleSerializer(serializers.ModelSerializer):
+class ArticleSerializer(WritableNestedModelSerializer,serializers.ModelSerializer):
     images = ImageSerializer(many=True,required=False)
     class Meta:
         model = Article

@@ -9,6 +9,11 @@ def change_img_name(instance,filename):
     name = instance.type.lower()
     file_extension = filename.split('.')[-1]
     filename = f"{name}_{counter}.{file_extension}"
+
+    if name == "article_thumbnail":
+        name = "article"
+        filename = f"{name}_thumbnail_{counter}.{file_extension}"
+
     return os.path.join(f"{name}", filename)
 
 
@@ -16,17 +21,18 @@ class Image(models.Model):
     TYPE_CHOICES = (
         ("project","Project"),
         ("article","Article"),
+        ("article_thumbnail","Article Thumbnail"),
         ("person","Person"),
     )
-    type = models.CharField(max_length=50,choices=TYPE_CHOICES,default="Article",null=True)
-    img = models.ImageField(upload_to=change_img_name,null=True,blank=True)
+    type = models.CharField(max_length=50,choices=TYPE_CHOICES,null=False)
+    img = models.ImageField(upload_to=change_img_name,null=False)
 
     def __str__(self) -> str:
         return str(self.img)
 
 
 class Skill(models.Model):
-    name = models.CharField(max_length=50, null=True)
+    name = models.CharField(max_length=50,null=True)
     description = models.CharField(max_length=100,null=True)
 
     def __str__(self) -> str:
@@ -34,7 +40,7 @@ class Skill(models.Model):
 
 
 class ProjectTag(models.Model):
-    name = models.CharField(max_length=50,null=True)
+    name = models.CharField(max_length=50,null=False)
 
     def __str__(self) -> str:
         return self.name
@@ -86,22 +92,25 @@ class WorkedAt(models.Model):
     
 
 class Person(models.Model):
-    fname = models.CharField(max_length=50,verbose_name='first name',blank=True,null=True)
-    lname = models.CharField(max_length=50,verbose_name='last name',blank=True,null=True)
-    biography = models.TextField(max_length=500,null=True)
-    client_number = models.IntegerField(null=True)
-    years_of_experience = models.IntegerField(null=True)
-    email = models.EmailField(max_length=50,unique=True,null=True)
-    bdate = models.DateField(verbose_name='birth date',null=True)
+    fname = models.CharField(max_length=50,verbose_name='first name',null=False)
+    lname = models.CharField(max_length=50,verbose_name='last name',null=False)
+    email = models.EmailField(max_length=50,unique=True,null=False)
+
+    biography = models.TextField(max_length=500,null=True,blank=True)
+    client_number = models.IntegerField(null=True,blank=True)
+    years_of_experience = models.IntegerField(null=True,blank=True)
+    bdate = models.DateField(verbose_name='birth date',null=True,blank=True)
+
     skill = models.ManyToManyField(Skill,blank=True)
     project = models.ManyToManyField(Project,blank=True)
     article = models.ManyToManyField(Article,blank=True)
     education = models.ManyToManyField(Education,blank=True)
     worked_at = models.ManyToManyField(WorkedAt,blank=True)
     images = models.ManyToManyField(Image,blank=True)
-    instagram_link = models.URLField(max_length=200,null=True)
-    github_link = models.URLField(max_length=200,null=True)
-    linkedin_link = models.URLField(max_length=200,null=True)
+    
+    instagram_link = models.URLField(max_length=200,null=True,blank=True)
+    github_link = models.URLField(max_length=200,null=True,blank=True)
+    linkedin_link = models.URLField(max_length=200,null=True,blank=True)
 
 
     def __str__(self) -> str:

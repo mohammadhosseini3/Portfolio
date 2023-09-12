@@ -16,7 +16,7 @@ def people_list(request):
         return Response({'person':serializer.data})
     
 
-    elif request.method == 'POST' and request.user.is_authenticated:
+    elif request.method == 'POST':
         serializer = PersonSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -48,7 +48,7 @@ def person_detail(request,id):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 
-@api_view(["GET","POST"])
+@api_view(["GET"])
 def article_list(request):
 
     if request.method == 'GET':
@@ -56,14 +56,13 @@ def article_list(request):
         serializer = ArticleSerializer(article,many=True)
         return Response({'article':serializer.data})
     
-
-    elif request.method == 'POST':
-        serializer = ArticleSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # elif request.method == 'POST':
+    #     serializer = ArticleSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    #     else:
+    #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET','PUT','DELETE'])
@@ -87,7 +86,7 @@ def artcile_detail(request,id):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 
-@api_view(["GET","POST"])
+@api_view(["GET"])
 def skill_list(request):
 
     if request.method == 'GET':
@@ -96,13 +95,15 @@ def skill_list(request):
         return Response({'skill':serializer.data})
     
 
-    elif request.method == 'POST':
-        serializer = SkillSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # elif request.method == 'POST' and request.user.is_authenticated:
+    #     serializer = SkillSerializer(data=request.data)
+
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    #     else:
+    #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # return Response(status=status.HTTP_511_NETWORK_AUTHENTICATION_REQUIRED)
 
 
 @api_view(['GET','PUT','DELETE'])
@@ -126,7 +127,7 @@ def skill_detail(request,id):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-@api_view(["GET","POST"])
+@api_view(["GET"])
 def education_list(request):
 
     if request.method == 'GET':
@@ -135,13 +136,13 @@ def education_list(request):
         return Response({'education':serializer.data})
     
 
-    elif request.method == 'POST':
-        serializer = EducationSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # elif request.method == 'POST':
+    #     serializer = EducationSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    #     else:
+    #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET','PUT','DELETE'])
@@ -165,7 +166,7 @@ def education_detail(request,id):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 
-@api_view(["GET","POST"])
+@api_view(["GET"])
 def project_list(request):
 
     if request.method == 'GET':
@@ -174,13 +175,13 @@ def project_list(request):
         return Response({'project':serializer.data})
     
 
-    elif request.method == 'POST':
-        serializer = ProjectSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # elif request.method == 'POST':
+    #     serializer = ProjectSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    #     else:
+    #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET','PUT','DELETE'])
@@ -205,20 +206,21 @@ def project_detail(request,id):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 
-@api_view(['GET','POST'])
+@api_view(['GET'])
 def worked_at(request):
 
     if request.method == "GET":
         company = WorkedAt.objects.all()
         serializer = WorkedAtSerializer(company,many=True)
         return Response({"worked_at":serializer.data})
-    elif request.method == 'POST':
-        serializer = WorkedAtSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data,status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    
+    # elif request.method == 'POST':
+    #     serializer = WorkedAtSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data,status=status.HTTP_201_CREATED)
+    #     else:
+    #         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET','PUT','DELETE'])
@@ -228,7 +230,7 @@ def worked_at_detail(request,id):
 
     if request.method == "GET":
         serializer = WorkedAtSerializer(company)
-        return Response({"worked_at":serializer.data})
+        return Response(serializer.data)
     
     elif request.method == 'PUT':
         serializer = WorkedAtSerializer(company,data=request.data)
@@ -242,20 +244,21 @@ def worked_at_detail(request,id):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 
-@api_view(['GET','POST'])
+@api_view(['GET'])
 def image_list(request):
 
     if request.method == "GET":
         image = Image.objects.all()
         serializer = ImageSerializer(image,many=True)
         return Response({"images":serializer.data})
-    elif request.method == 'POST':
-        serializer = ImageSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data,status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    
+    # elif request.method == 'POST':
+    #     serializer = ImageSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data,status=status.HTTP_201_CREATED)
+    #     else:
+    #         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET','PUT','DELETE'])
@@ -265,7 +268,7 @@ def image_detail(request,id):
 
     if request.method == "GET":
         serializer = ImageSerializer(image)
-        return Response({"images":serializer.data})
+        return Response(serializer.data)
     
     elif request.method == 'PUT':
         serializer = ImageSerializer(image,data=request.data)

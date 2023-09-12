@@ -7,9 +7,9 @@ urlpatterns = [
     path('people/<int:id>/',views.person_detail),
 
     path('articles/',views.article_list),
-    path('article/<int:id>/',views.artcile_detail),
+    path('articles/<int:id>/',views.artcile_detail),
 
-    path('skills',views.skill_list),
+    path('skills/',views.skill_list),
     path('skills/<int:id>/',views.skill_detail),
 
     path('education/',views.education_list),
