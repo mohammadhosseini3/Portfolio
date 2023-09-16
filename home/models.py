@@ -23,6 +23,7 @@ class Image(models.Model):
         ("article","Article"),
         ("article_thumbnail","Article Thumbnail"),
         ("person","Person"),
+        ("skill","Skill"),
     )
     type = models.CharField(max_length=50,choices=TYPE_CHOICES,null=False)
     img = models.ImageField(upload_to=change_img_name,null=False)
@@ -33,6 +34,7 @@ class Image(models.Model):
 
 class Skill(models.Model):
     name = models.CharField(max_length=50,null=True)
+    img = models.ManyToManyField(Image,blank=True)
     description = models.CharField(max_length=100,null=True)
 
     def __str__(self) -> str:
@@ -112,6 +114,7 @@ class Person(models.Model):
     github_link = models.URLField(max_length=200,null=True,blank=True)
     linkedin_link = models.URLField(max_length=200,null=True,blank=True)
 
+    cv = models.FileField(upload_to="cv/",null=True)
 
     def __str__(self) -> str:
         return self.fname

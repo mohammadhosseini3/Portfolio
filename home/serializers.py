@@ -11,6 +11,7 @@ class ImageSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class SkillSerializer(serializers.ModelSerializer):
+    img = ImageSerializer(many=True,required=False)
     class Meta:    
         model = Skill
         fields = '__all__'
