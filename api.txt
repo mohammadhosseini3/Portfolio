@@ -278,11 +278,11 @@
     * Images have four types {
         1: person,
         2: article,
-        3: article_tumbnail
+        3: article_thumbnail
         4: project
     }
 
-    ++ JSON Example -> POST /api/people/
+    ++ JSON Example -> PUT /api/people/
     {
         "images": [
             {
