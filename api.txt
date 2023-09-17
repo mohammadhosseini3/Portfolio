@@ -139,7 +139,7 @@
     {
         "id": 1,
         "name": "java",
-        "description": "framework for backend"
+        "img":null
     }
 
 

@@ -6,7 +6,11 @@ import os
 
 def change_img_name(instance,filename):
     counter = randint(1,1000)
-    name = instance.type.lower()
+    try:
+        name = instance.type.lower()
+    except AttributeError:
+        name = "cv"
+
     file_extension = filename.split('.')[-1]
     filename = f"{name}_{counter}.{file_extension}"
 
@@ -35,7 +39,6 @@ class Image(models.Model):
 class Skill(models.Model):
     name = models.CharField(max_length=50,null=True)
     img = models.ManyToManyField(Image,blank=True)
-    description = models.CharField(max_length=100,null=True)
 
     def __str__(self) -> str:
         return f"{self.name}"
@@ -114,7 +117,7 @@ class Person(models.Model):
     github_link = models.URLField(max_length=200,null=True,blank=True)
     linkedin_link = models.URLField(max_length=200,null=True,blank=True)
 
-    cv = models.FileField(upload_to="cv/",null=True)
+    cv = models.FileField(upload_to=change_img_name,null=True,blank=True)
 
     def __str__(self) -> str:
         return self.fname
