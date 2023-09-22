@@ -38,7 +38,7 @@ class Image(models.Model):
 
 class Skill(models.Model):
     name = models.CharField(max_length=50,null=True)
-    img = models.ManyToManyField(Image,blank=True)
+    images = models.ManyToManyField(Image,blank=True)
 
     def __str__(self) -> str:
         return f"{self.name}"
@@ -66,6 +66,7 @@ class Project(models.Model):
 class Education(models.Model):
     degree = models.CharField(max_length=50,null=True)
     university = models.CharField(max_length=50,null=True)
+    desc = models.TextField(max_length=500,verbose_name="Description",null=True)
     started_at = models.DateField(null=True)
     ended_at = models.DateField(null=True)
 
