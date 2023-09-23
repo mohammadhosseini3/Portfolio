@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Person,Skill,Project,Article,Education,WorkedAt,ProjectTag,Image
+from .models import Person,Skill,Project,Article,Education,WorkedAt,ProjectTag,Image,ArticleTag
 from drf_extra_fields.fields import Base64ImageField
 from drf_writable_nested import WritableNestedModelSerializer
 
@@ -22,6 +22,13 @@ class ProjectTagSerializer(serializers.ModelSerializer):
         model = ProjectTag
         fields = "__all__"
 
+
+class ArticleTagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ArticleTag
+        fields = "__all__"
+
+
 class ProjectSerializer(WritableNestedModelSerializer,serializers.ModelSerializer):
     images = ImageSerializer(many=True,required=False)
     tag = ProjectTagSerializer(many=True,required=False)
@@ -32,6 +39,7 @@ class ProjectSerializer(WritableNestedModelSerializer,serializers.ModelSerialize
 
 class ArticleSerializer(WritableNestedModelSerializer,serializers.ModelSerializer):
     images = ImageSerializer(many=True,required=False)
+    tag = ArticleTagSerializer(many=True,required=False)
     class Meta:
         model = Article
         fields = '__all__'

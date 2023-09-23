@@ -49,7 +49,14 @@ class ProjectTag(models.Model):
 
     def __str__(self) -> str:
         return self.name
+    
 
+class ArticleTag(models.Model):
+    name = models.CharField(max_length=50,null=False)
+
+    def __str__(self) -> str:
+        return self.name
+    
 
 class Project(models.Model):
     name = models.CharField(max_length=100,null=True)
@@ -81,6 +88,7 @@ class Article(models.Model):
     updated_at = models.DateTimeField(auto_now=True,null=True)
     summary = models.CharField(max_length=500,null=True)
     content = models.TextField(max_length=500,null=True)
+    tag = models.ManyToManyField(ArticleTag,blank=True)
 
     def __str__(self) -> str:
         return f"title :{self.title}"

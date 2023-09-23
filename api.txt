@@ -81,6 +81,17 @@
                             "type":"article_thumbnail"
                         }
                     ],
+                    "tag": [
+                        {
+                            "name": "django"
+                        },
+                        {
+                            "name": "mysql"
+                        },
+                        {
+                            "name": "api"
+                        }
+                    ],
                     "title": "asdfsf",
                     "summary": "advad",
                     "content": "asdvadv"
@@ -171,6 +182,17 @@
                 {
                     "img": Image String,
                     "type": "article_thumbnail"
+                }
+            ],
+            "tag": [
+                {
+                    "name": "django"
+                },
+                {
+                    "name": "mysql"
+                },
+                {
+                    "name": "api"
                 }
             ],
             "title": "asdfsf",
